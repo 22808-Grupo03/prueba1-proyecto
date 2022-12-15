@@ -5,9 +5,10 @@ import { Image } from "./Image";
 import "./Visualizer.css";
 
 export const Visualizer = () => {
-  const [currentEvolution, setCurrentEvolution] = useState(0);
+  const [currentEvolution, setCurrentEvolution] = useState([]);
   const [evolutionChainId, setEvolutionChainId] = useState(0);
   const [pictureUrls, setPictureUrls] = useState([]);
+  const [pokemonNames, setPokemonNames] = useState([]);
 
   const getEvolutionChain = useCallback((id) => {
     axios
@@ -16,12 +17,16 @@ export const Visualizer = () => {
         let evoluciones = response.data.chain.evolves_to;
         let tieneEvolucion = true;
         let urls = [];
+        let names = [];
+        names.push(response.data.chain.species.name);
+
         // get basic pokemon picture
 
         axios.get(response.data.chain.species.url).then((response) => {
           axios.get(response.data.varieties[0].pokemon.url).then((response) => {
             urls.push(response.data.sprites.front_default);
             setPictureUrls(urls);
+
             // console.log(pictureUrls);
           });
         });
@@ -30,12 +35,14 @@ export const Visualizer = () => {
 
         while (tieneEvolucion) {
           if (evoluciones.length > 0) {
+            names.push(evoluciones[0].species.name);
             axios.get(evoluciones[0].species.url).then((response) => {
               axios
                 .get(response.data.varieties[0].pokemon.url)
                 .then((response) => {
                   urls.push(response.data.sprites.front_default);
                   setPictureUrls(urls);
+                  setPokemonNames(names);
                 });
             });
             evoluciones = evoluciones[0].evolves_to;
@@ -62,6 +69,7 @@ export const Visualizer = () => {
   const imageProps = {
     currentEvolution,
     pictureUrls,
+    pokemonNames,
   };
   return (
     <div className="visualizer-container">

@@ -1,10 +1,18 @@
-.image-container {
+.pokemon-container {
   margin-bottom: 1rem;
   border-radius: 5px;
   width: 400px;
   background-color: rgb(65, 23, 104);
   height: 250px;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
 .image {
@@ -13,4 +21,12 @@
   object-fit: contain;
   height: 100%;
   width: 100%;
+  flex: 1;
+}
+.name {
+  background-color: rgb(13, 87, 62);
+  border: solid 3px black;
+  object-fit: contain;
+  width: 100%;
+  font-size: 18px;
 }
