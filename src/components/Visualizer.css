@@ -1,0 +1,8 @@
+.visualizer-container {
+  border: solid 2px black;
+  border-radius: 5px;
+  padding: 2rem;
+  background-color: rgb(230, 20, 20);
+  height: 400px;
+  width: 500px;
+}
