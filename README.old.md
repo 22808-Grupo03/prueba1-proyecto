@@ -28,5 +28,3 @@ git clone https://github.com/22808-Grupo03/prueba1-proyecto.git
 git switch -C nombrerama
 ```
 
-// https://pokeapi.co/api/v2/pokemon/VARIABLE (IMAGENES)
-// https://pokeapi.co/api/v2/evolution-chain/variable/ basic pokemon
