@@ -1,9 +1,9 @@
-import "./App.css";
-import { Visualizer } from "./components/Visualizer";
+import './App.css';
+import { Visualizer } from './components/Visualizer';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App d-flex justify-content-center">
       <Visualizer />
     </div>
   );
