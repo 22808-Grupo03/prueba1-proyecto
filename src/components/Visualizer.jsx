@@ -5,37 +5,44 @@ import { Image } from "./Image";
 import "./Visualizer.css";
 
 export const Visualizer = () => {
-  const [pokemonId, setPokemonId] = useState();
+  const [currentEvolution, setCurrentEvolution] = useState(0);
   const [evolutionChainId, setEvolutionChainId] = useState(0);
-  const [pictureUrl, setPictureUrl] = useState("");
+  const [pictureUrls, setPictureUrls] = useState([]);
 
   const getEvolutionChain = useCallback((id) => {
     axios
       .get("https://pokeapi.co/api/v2/evolution-chain/" + id + "/")
       .then((response) => {
-        // Establecer la Url de la imagen de pokemones base
-
-        // Obtener Url de imegen de pokemones evolucionados
         let evoluciones = response.data.chain.evolves_to;
         let tieneEvolucion = true;
-        let contadorEvoluciones = 0;
+        let urls = [];
+        // get basic pokemon picture
+
+        axios.get(response.data.chain.species.url).then((response) => {
+          axios.get(response.data.varieties[0].pokemon.url).then((response) => {
+            urls.push(response.data.sprites.front_default);
+            setPictureUrls(urls);
+            // console.log(pictureUrls);
+          });
+        });
+
+        // get evolutions pictures
 
         while (tieneEvolucion) {
-          // console.log(evoluciones.length);
           if (evoluciones.length > 0) {
-            tieneEvolucion = true;
+            axios.get(evoluciones[0].species.url).then((response) => {
+              axios
+                .get(response.data.varieties[0].pokemon.url)
+                .then((response) => {
+                  urls.push(response.data.sprites.front_default);
+                  setPictureUrls(urls);
+                });
+            });
             evoluciones = evoluciones[0].evolves_to;
-            contadorEvoluciones++;
           } else {
             tieneEvolucion = false;
           }
         }
-
-        return axios.get(response.data.chain.species.url).then((response) => {
-          axios.get(response.data.varieties[0].pokemon.url).then((response) => {
-            setPictureUrl(response.data.sprites.front_default);
-          });
-        });
       });
   }, []);
 
@@ -45,10 +52,20 @@ export const Visualizer = () => {
     }
   }, [evolutionChainId, getEvolutionChain]);
 
-  const controlProps = { evolutionChainId, setEvolutionChainId };
+  const controlProps = {
+    evolutionChainId,
+    setEvolutionChainId,
+    currentEvolution,
+    setCurrentEvolution,
+    pictureUrls,
+  };
+  const imageProps = {
+    currentEvolution,
+    pictureUrls,
+  };
   return (
     <div className="visualizer-container">
-      <Image url={pictureUrl} />
+      <Image {...imageProps} />
       <Controls {...controlProps} />
     </div>
   );
