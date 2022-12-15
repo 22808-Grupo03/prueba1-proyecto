@@ -1,0 +1,16 @@
+.image-container {
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  width: 400px;
+  background-color: rgb(65, 23, 104);
+  height: 250px;
+  padding: 1rem;
+}
+
+.image {
+  background-color: aquamarine;
+  border: solid 3px black;
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}

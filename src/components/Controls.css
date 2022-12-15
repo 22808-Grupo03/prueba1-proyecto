@@ -1,0 +1,8 @@
+.controls-container {
+  height: 50px;
+  width: 400px;
+  border-radius: 5px;
+  background-color: rgb(19, 77, 57);
+  display: flex;
+  justify-content: space-around;
+}
