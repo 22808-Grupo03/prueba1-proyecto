@@ -64,7 +64,7 @@ export const Visualizer = () => {
     pictureUrls,
   };
   return (
-    <div className="visualizer-container">
+    <div className="border border-black border-2 p-2 m-2 rounded bg-danger visualizer">
       <Image {...imageProps} />
       <Controls {...controlProps} />
     </div>

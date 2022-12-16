@@ -28,19 +28,31 @@ export const Controls = ({
   };
 
   return (
-    <div className="controls-container">
-      <button disabled={evolutionChainId < 2} onClick={() => disminuirId()}>
-        Anterior
-      </button>
-      <button
-        // disabled={currentEvolution >= pictureUrls.length - 1}
-        onClick={evolucionar}
-      >
-        Evolucionar
-      </button>
-      <button disabled={evolutionChainId > 467} onClick={() => incremetarId()}>
-        Siguiente
-      </button>
+    <div className="container">
+      <div className="row gx-2">
+        <button
+          disabled={evolutionChainId < 2}
+          onClick={() => disminuirId()}
+          className="btn btn-light col"
+        >
+          Anterior
+        </button>
+        <button
+          // disabled={currentEvolution >= pictureUrls.length - 1}
+          onClick={evolucionar}
+          className="btn btn-light col"
+        >
+          Evolucionar
+        </button>
+        <button
+          disabled={evolutionChainId > 467}
+          onClick={() => incremetarId()}
+          className="btn btn-light col"
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
+
   );
 };
